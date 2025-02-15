@@ -1,0 +1,124 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7fa;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+  }
+  
+  h1, h2, h3 {
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    margin-bottom: 15px;
+  }
+  
+  /* Image list styling */
+  img {
+    width: 100%;
+    max-width: 100px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  img:hover {
+    transform: scale(1.1);
+  }
+  
+  /* Photo upload form */
+  form {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 100%;
+    max-width: 500px;
+    margin: 20px auto;
+  }
+  
+  input[type="file"], input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Delete button style */
+  button.delete {
+    background-color: #dc3545;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+  
+  button.delete:hover {
+    background-color: #c82333;
+  }
+  
+  /* Photo detail page */
+  .photo-detail {
+    max-width: 600px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .photo-detail img {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+  }
+  
+  .photo-detail p {
+    font-size: 16px;
+    color: #555;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    img {
+      max-width: 80px;
+    }
+  
+    .photo-detail img {
+      max-width: 100%;
+    }
+  
+    form {
+      padding: 15px;
+    }
+  
+    button {
+      width: 100%;
+    }
+  }
+  
