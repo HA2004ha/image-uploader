@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';  // برای استفاده از
 const PhotoList = ({ photos, onDelete, onUpload }) => {
   const [file, setFile] = useState(null);
   const [description, setDescription] = useState('');
+  const [hoveredId, setHoveredId] = useState(null);  // اضافه کردن state برای ذخیره id عکس در حال hover
   const navigate = useNavigate();  // برای هدایت به صفحه جزئیات
 
   const handleFileChange = (e) => {
@@ -55,19 +56,36 @@ const PhotoList = ({ photos, onDelete, onUpload }) => {
 
       <div>
         {photos.map((photo) => (
-          <div key={photo.id} style={{ position: 'relative', display: 'inline-block' }}>
+          <div
+            key={photo.id}
+            style={{ position: 'relative', display: 'inline-block' }}
+            onMouseEnter={() => setHoveredId(photo.id)}  // زمانیکه موس می‌رود روی عکس
+            onMouseLeave={() => setHoveredId(null)}  // زمانی که موس از روی عکس می‌رود
+          >
             <img
               src={`http://localhost:5000/uploads/${photo.path}`}
               alt={photo.description}
               onClick={() => handlePhotoClick(photo.id)}  // کلیک برای رفتن به صفحه جزئیات
               style={{ width: '100px', height: '100px', margin: '10px' }}
             />
-            <button
-              onClick={() => onDelete(photo.id)}
-              style={{ position: 'absolute', top: '0', right: '0' }}
-            >
-              Delete
-            </button>
+            {/* دکمه حذف فقط زمانی که موس روی عکس باشد نشان داده می‌شود */}
+            {hoveredId === photo.id && (
+              <button
+                onClick={() => onDelete(photo.id)}
+                style={{
+                  position: 'absolute',
+                  top: '0',
+                  right: '0',
+                  backgroundColor: 'red',
+                  color: 'white',
+                  border: 'none',
+                  padding: '5px 10px',
+                  cursor: 'pointer',
+                }}
+              >
+                Delete
+              </button>
+            )}
           </div>
         ))}
       </div>
