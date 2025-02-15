@@ -1,31 +1,26 @@
+import './styles.css';
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
-import PhotoUploader from './components/PhotoUploader';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import PhotoList from './components/PhotoList';
 import PhotoDetail from './components/PhotoDetail';
 import axios from 'axios';
-import './styles.css'; // مسیر صحیح فایل را وارد کنید
 
-const App = () => {
+function App() {
   const [photos, setPhotos] = useState([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
+    // بارگذاری عکس‌ها از سرور
+    const fetchPhotos = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/photos');
+        setPhotos(response.data);
+      } catch (error) {
+        console.error('Error fetching photos:', error);
+      }
+    };
+
     fetchPhotos();
   }, []);
-
-  const fetchPhotos = async () => {
-    try {
-      const response = await axios.get('http://localhost:5000/photos');
-      setPhotos(response.data);
-    } catch (error) {
-      console.error('Error fetching photos:', error);
-    }
-  };
-
-  const handleUpload = (newPhoto) => {
-    setPhotos([...photos, newPhoto]);
-  };
 
   const handleDelete = async (id) => {
     try {
@@ -36,27 +31,25 @@ const App = () => {
     }
   };
 
-  const handlePhotoClick = (id) => {
-    navigate(`/photo/${id}`);
-  };
-
   return (
-    <div>
-      <PhotoUploader onUpload={handleUpload} />
-      <PhotoList photos={photos} onDelete={handleDelete} onPhotoClick={handlePhotoClick} />
-      <Routes>
-        <Route path="/photo/:id" element={<PhotoDetail photos={photos} />} />
-      </Routes>
-    </div>
+    <Router>
+      <div className="App">
+        <Routes>
+          {/* صفحه گالری که لیست تصاویر و فرم آپلود را نمایش می‌دهد */}
+          <Route
+            path="/"
+            element={<PhotoList photos={photos} onDelete={handleDelete} />}
+          />
+
+          {/* صفحه جزئیات که یک عکس خاص را نمایش می‌دهد */}
+          <Route
+            path="/photos/:id"
+            element={<PhotoDetail photos={photos} />}
+          />
+        </Routes>
+      </div>
+    </Router>
   );
-};
+}
 
-// اختصاص تابع به یک متغیر
-const AppWrapper = () => (
-  <Router>
-    <App />
-  </Router>
-);
-
-// Export متغیر
-export default AppWrapper;
+export default App;
