@@ -8,8 +8,8 @@ import axios from 'axios';
 function App() {
   const [photos, setPhotos] = useState([]);
 
+  // بارگذاری عکس‌ها از سرور
   useEffect(() => {
-    // بارگذاری عکس‌ها از سرور
     const fetchPhotos = async () => {
       try {
         const response = await axios.get('http://localhost:5000/photos');
@@ -22,6 +22,7 @@ function App() {
     fetchPhotos();
   }, []);
 
+  // حذف عکس از سرور و لیست
   const handleDelete = async (id) => {
     try {
       await axios.delete(`http://localhost:5000/photos/${id}`);
@@ -31,6 +32,11 @@ function App() {
     }
   };
 
+  // افزودن عکس جدید به لیست
+  const handleUpload = (newPhoto) => {
+    setPhotos((prevPhotos) => [...prevPhotos, newPhoto]);
+  };
+
   return (
     <Router>
       <div className="App">
@@ -38,7 +44,7 @@ function App() {
           {/* صفحه گالری که لیست تصاویر و فرم آپلود را نمایش می‌دهد */}
           <Route
             path="/"
-            element={<PhotoList photos={photos} onDelete={handleDelete} />}
+            element={<PhotoList photos={photos} onDelete={handleDelete} onUpload={handleUpload} />}
           />
 
           {/* صفحه جزئیات که یک عکس خاص را نمایش می‌دهد */}
