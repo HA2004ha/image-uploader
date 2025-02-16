@@ -4,7 +4,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import PhotoList from './components/PhotoList';
 import PhotoDetail from './components/PhotoDetail';
 import axios from 'axios';
-
+import MapPage from "./pages/MapPage";
+import LocationDetail from "./pages/LocationDetail";
 function App() {
   const [photos, setPhotos] = useState([]);
 
@@ -52,6 +53,8 @@ function App() {
             path="/photos/:id"
             element={<PhotoDetail photos={photos} />}
           />
+          <Route path="/map" element={<MapPage />} />
+          <Route path="/location/:id" element={<LocationDetail />} />
         </Routes>
       </div>
     </Router>
